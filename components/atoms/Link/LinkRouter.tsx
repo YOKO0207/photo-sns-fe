@@ -20,7 +20,7 @@ interface Props extends SpaceProps, ColorProps, TypographyProps {
 	currentPathStyle?: CSSProperties;
 }
 
-export const Link: React.FC<
+export const LinkRouter: React.FC<
 	Props & AnchorHTMLAttributes<HTMLAnchorElement>
 > = ({ href, query, children, currentPathStyle, ...props }) => {
 	let { pathname } = useRouter();
