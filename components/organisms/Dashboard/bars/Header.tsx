@@ -7,12 +7,12 @@ import {
 	MSpan,
 	Typography
 } from "@/components/atoms";
-import { ModalConfirmation } from "@/components/molecules";
+import { ModalConfirmation, Alphabetavatar } from "@/components/molecules";
 import {
-	useMe,
-	useUserLogoutHandler,
+	useUserLogoutHandler
 } from "@/hooks";
 import { FRONTEND_PATH } from "@/libs/routes";
+import { useUserContext } from "@/states/contexts";
 import { colors } from "@/styles";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
@@ -32,11 +32,11 @@ export const Header = () => {
 			alignItems="center"
 			height="64px"
 			borderBottom="1px solid"
-			borderColor="gray.60"
+			borderColor="gray2.50"
 		>
 			<LinkRouter href={FRONTEND_PATH.HOME}>
-				<H5 width="160px" color="gray.black" fontWeight="bold">
-					運用管理助ける君
+				<H5 width="160px" color="gray2.200" fontWeight="bold">
+					Pointy
 				</H5>
 			</LinkRouter>
 			<HeaderMenu />
@@ -45,7 +45,7 @@ export const Header = () => {
 };
 
 const HeaderMenu = () => {
-	const { user } = useMe();
+	const { state: user } = useUserContext();
 	const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
 
 	const { handleUserLogout, isFormLoading: userLogoutFormLoading } =
@@ -66,9 +66,7 @@ const HeaderMenu = () => {
 					style={{ cursor: "pointer" }}
 					onClick={() => setIsHeaderMenuOpen((prev) => !prev)}
 				>
-					<LSpan color="gray.black" mr="12px">
-						{user?.data?.data?.name}
-					</LSpan>
+					<Alphabetavatar name={user?.name[0] || ""} size="md" />
 				</Box>
 
 				{isHeaderMenuOpen && (
@@ -88,10 +86,10 @@ const HeaderMenu = () => {
 								py="15px"
 							>
 								<Typography fontWeight="bold" fontSize="16px">
-									{user?.data?.data?.name}
+									{user?.name || ""}
 								</Typography>
 								<MSpan color="gray.300" fontWeight="400">
-									{user?.data?.data?.email}
+									{user?.email || ""}
 								</MSpan>
 							</Box>
 							<Box px="20px" py="10px">
