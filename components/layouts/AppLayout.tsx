@@ -7,13 +7,13 @@ interface Props {
 	breadcrumbList?: any;
 }
 
-export const DashboardLayout: React.FC<Props> = (props) => {
+export const AppLayout: React.FC<Props> = (props) => {
 	const { children, breadcrumbList } = props;
 
 	return (
 		<Fragment>
 			<Header />
-			<Box my="24px" mx="40px">
+			<Box my="24px" mx="40px" as="main">
 				<Breadcrumb breadcrumbList={breadcrumbList} mb="20px" />
 				{children}
 			</Box>
