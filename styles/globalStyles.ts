@@ -6,7 +6,7 @@ export const GlobalStyles = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-size: 16px;
-    background: ${({ theme }: any) => theme.colors.gray[100]};
+    background: ${({ theme }: any) => theme.colors[50]};
     color: ${({ theme }: any) => theme.colors.gray["black"]};
     font-family: Inter, Roboto, -apple-system, BlinkMacSystemFont, Segoe UI,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,

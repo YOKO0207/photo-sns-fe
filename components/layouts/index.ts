@@ -1,2 +1,2 @@
 export * from "./GuestLayout";
-export * from "./DashboardLayout";
+export * from "./AppLayout";

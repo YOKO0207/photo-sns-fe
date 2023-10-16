@@ -1,15 +1,12 @@
-import { DashboardLayout } from "@/components/layouts";
-import {
-	ProfileMenuBar,
-	DashboardCardWrapper
-} from "@/components/organisms";
+import { AppLayout } from "@/components/layouts";
+import { ProfileMenuBar, DashboardCardWrapper } from "@/components/organisms";
 import { checkAuthMiddleware } from "@/libs/middleware";
 import { FRONTEND_PATH } from "@/libs/routes";
 import { NextPage } from "next";
 
 const UserEmailUpdateSentPage: NextPage = () => {
 	return (
-		<DashboardLayout breadcrumbList={breadcrumbList}>
+		<AppLayout breadcrumbList={breadcrumbList}>
 			<ProfileMenuBar />
 			<DashboardCardWrapper
 				title="本人確認メールを送信しました。"
@@ -21,7 +18,7 @@ const UserEmailUpdateSentPage: NextPage = () => {
 				]}
 				maxWidth="600px"
 			/>
-		</DashboardLayout>
+		</AppLayout>
 	);
 };
 

@@ -1,8 +1,9 @@
 import { AppErrorBoundary, SWRConfig } from "@/components/organisms";
-import { UserProvider } from "@/states/contexts";
+import { useMe } from "@/hooks";
+import { UserProvider, useUserContext } from "@/states/contexts";
 import { GlobalStyles, theme } from "@/styles";
 import Head from "next/head";
-import { FC } from "react";
+import { FC, ReactElement, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "styled-components";
@@ -19,7 +20,9 @@ const App: FC = ({ Component, pageProps }: any) => {
 				<SWRConfig>
 					<ToastContainer />
 					<UserProvider>
-						<Component {...pageProps} />
+						<AppWrapper>
+							<Component {...pageProps} />
+						</AppWrapper>
 					</UserProvider>
 				</SWRConfig>
 			</AppErrorBoundary>
@@ -28,3 +31,23 @@ const App: FC = ({ Component, pageProps }: any) => {
 };
 
 export default App;
+
+interface AppWrapperProps {
+	children: ReactElement;
+}
+const AppWrapper: FC<AppWrapperProps> = (props) => {
+	const { children } = props;
+
+	const { user } = useMe();
+		const { dispatch } = useUserContext();
+
+	useEffect(() => {
+		if (user?.data?.data) {
+			dispatch({ type: "SET_USER_DATA", payload: user.data.data });
+		} else {
+			dispatch({ type: "UNSET_USER_DATA" });
+		}
+	}, [user?.data?.data, dispatch]);
+	
+	return (<>{children}</>)
+};

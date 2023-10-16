@@ -160,7 +160,7 @@ const UserRegisterPage: NextPage = () => {
 										color="primary"
 										type="submit"
 										fullwidth
-										size="medium"
+										size="md"
 										disabled={
 											!isValid ||
 											isEmptyObject(R.pickBy(Boolean, values)) ||

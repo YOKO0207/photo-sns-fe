@@ -1,5 +1,5 @@
 import { Box, Button, LSpan, Spinner, TextField } from "@/components/atoms";
-import { DashboardLayout } from "@/components/layouts";
+import { AppLayout } from "@/components/layouts";
 import { DashboardFormWrapper, ProfileMenuBar } from "@/components/organisms";
 import { useMe, useUserUpdateEmailHandler } from "@/hooks";
 import { checkAuthMiddleware } from "@/libs/middleware";
@@ -26,7 +26,7 @@ const UserAccountEmailPage: NextPage = () => {
 	};
 
 	return (
-		<DashboardLayout breadcrumbList={breadcrumbList}>
+		<AppLayout breadcrumbList={breadcrumbList}>
 			<ProfileMenuBar />
 			<DashboardFormWrapper
 				title="メールアドレス変更ページ"
@@ -99,7 +99,7 @@ const UserAccountEmailPage: NextPage = () => {
 										color="primary"
 										type="submit"
 										fullwidth
-										size="medium"
+										size="md"
 										disabled={
 											!isValid ||
 											isEmptyObject(R.pickBy(Boolean, values)) ||
@@ -119,7 +119,7 @@ const UserAccountEmailPage: NextPage = () => {
 					}}
 				</Formik>
 			</DashboardFormWrapper>
-		</DashboardLayout>
+		</AppLayout>
 	);
 };
 

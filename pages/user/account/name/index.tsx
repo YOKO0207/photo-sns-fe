@@ -1,10 +1,11 @@
 import { Box, Button, LSpan, Spinner, TextField } from "@/components/atoms";
-import { DashboardLayout } from "@/components/layouts";
+import { AppLayout } from "@/components/layouts";
 import { DashboardFormWrapper, ProfileMenuBar } from "@/components/organisms";
-import { useMe, useUserUpdateProfileHandler } from "@/hooks";
+import { useUserUpdateProfileHandler } from "@/hooks";
 import { checkAuthMiddleware } from "@/libs/middleware";
 import { userNameUpdateInputSchema } from "@/libs/schemas";
 import { isEmptyObject } from "@/libs/utils";
+import { useUserContext } from "@/states/contexts";
 import { UserNameUpdateInput } from "@/types";
 import { Formik } from "formik";
 import { NextPage } from "next";
@@ -19,14 +20,14 @@ const UserAccountNamePage: NextPage = () => {
 		return validationErrors;
 	};
 
-	const { user } = useMe();
+	const { state: user } = useUserContext();
 
 	const initialValues = {
-		name: user?.data?.data?.name || "",
+		name: user?.name || "",
 	};
 
 	return (
-		<DashboardLayout breadcrumbList={breadcrumbList}>
+		<AppLayout breadcrumbList={breadcrumbList}>
 			<ProfileMenuBar />
 			<DashboardFormWrapper
 				title="プロフィール編集ページ"
@@ -78,7 +79,7 @@ const UserAccountNamePage: NextPage = () => {
 										color="primary"
 										type="submit"
 										fullwidth
-										size="medium"
+										size="md"
 										disabled={
 											!isValid ||
 											isEmptyObject(R.pickBy(Boolean, values)) ||
@@ -98,7 +99,7 @@ const UserAccountNamePage: NextPage = () => {
 					}}
 				</Formik>
 			</DashboardFormWrapper>
-		</DashboardLayout>
+		</AppLayout>
 	);
 };
 
