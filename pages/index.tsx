@@ -1,9 +1,14 @@
-import { useMe } from "@/hooks"
+import { AppLayout } from "@/components/layouts"
+import { NextPage } from "next"
+import { useUserContext } from "@/states/contexts";
 
-const IndexPage = () => {
-	const { user } = useMe()
-	console.log(user)
-	return <div>Hello Next.js</div>
+const IndexPage: NextPage = () => {
+	const { state: user } = useUserContext();
+	return (
+		<AppLayout>
+			<div>Index Page</div>
+		</AppLayout>
+	)
 }
 
 export default IndexPage
