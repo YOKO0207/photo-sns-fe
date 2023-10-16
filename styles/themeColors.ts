@@ -1,12 +1,12 @@
 const primary = {
-	700: "#0060D0",
-	500: "#4597F7",
-	300: "#7CB4F4",
-	200: "#CCE0F6",
+	700: "#F4562E",
+	500: "#F66540",
+	300: "#F6876B",
+	200: "#F4A18D",
 };
 const secondary = {
-	500: "#8D62E5",
-	200: "#DCD2F1",
+	500: "#4597F7",
+	200: "#CCE0F6",
 };
 const tertiary = {
 	500: "#E74219",
@@ -48,6 +48,10 @@ const gray = {
   "black": "black",
 	"white": "white",
 };
+const gray2 = {
+	200: "#626578",
+	50: "#E7EAEB",
+};
 
 const grayVariant = {
 	500: "#AAACAF",
@@ -67,6 +71,7 @@ export const colors = {
   success,
   error,
   gray,
+	gray2,
 	grayVariant,
 	grayTransparent,
 }
