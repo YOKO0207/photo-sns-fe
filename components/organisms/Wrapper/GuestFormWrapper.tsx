@@ -36,11 +36,13 @@ export const GuestFormWrapper: FC<Props> = (props) => {
 				width="100%"
 				mx="auto"
 				maxWidth="550px"
-				style={{ boxShadow: shadows[20] }}
+				//style={{ boxShadow: shadows[20] }}
+				border="2px solid"
+				borderColor="gray.150"
 			>
 				<Box mx="auto" textAlign="center">
 					<Box mb="20px">
-						<H3 textAlign="center" mb="20px" fontWeight={600}>
+						<H3 textAlign="center" mb="20px" fontWeight={600} >
 							{title}
 						</H3>
 						{descriptions?.map((item, index) => {
