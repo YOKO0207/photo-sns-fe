@@ -1,5 +1,5 @@
 import systemCss from "@styled-system/css";
-import { colorOptions } from "@/types";
+import { colorOptions, sizeOptions } from "@/types";
 import styled from "styled-components";
 import {
 	BackgroundProps,
@@ -24,7 +24,7 @@ interface Props
 		SpaceProps,
 		LayoutProps,
 		ShadowProps {
-	size?: "tiny" | "small" | "medium" | "large" | "none";
+	size?: Exclude<sizeOptions, "xl">;
 	color?: colorOptions;
 	variant?: "text" | "outlined" | "contained";
 	fullwidth?: boolean;
@@ -82,23 +82,23 @@ export const Button = styled.button<Props>(
 	variant({
 		prop: "size",
 		variants: {
-			large: {
+			lg: {
 				height: "56px",
 				px: 30,
 				fontSize: 14,
 			},
-			medium: {
+			md: {
 				height: "42px",
 				px: 30,
 				fontSize: 14,
 			},
-			small: {
+			sm: {
 				height: "32px",
 				fontSize: 14,
 				px: 3,
 				py: 1,
 			},
-			tiny: {
+			xs: {
 				height: "24px",
 				fontSize: 14,
 				padding: "4px 0.7rem",
@@ -107,8 +107,3 @@ export const Button = styled.button<Props>(
 	}),
 	compose(color, layout, space, border, shadow)
 );
-
-Button.defaultProps = {
-	size: "medium",
-	borderRadius: 3,
-};
