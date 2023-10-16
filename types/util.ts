@@ -44,6 +44,8 @@ export type colorOptions =
 	| "gray"
 	| "grayVariant";
 
+export type sizeOptions = "xs" | "sm" | "md" | "lg" | "xl";
+
 export interface StatusProps {
 	key: string;
 	label: string;
