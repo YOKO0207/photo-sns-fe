@@ -26,10 +26,13 @@ export const Textarea: FC<
 };
 
 const ContentInput = styled.textarea`
-	backgroundcolor: ${colors.gray.white};
-	border: 1px solid ${colors.gray[120]};
-	borderradius: 5px;
-	padding: 14px 12px;
+	border: 1px solid ${colors.gray[200]};
+	border-radius: 3px;
+	padding: 10px;
 	resize: none;
-	fontsize: 14px;
+	font-size: 14px;
+	&:focus {
+		border: 2px solid ${colors.primary[200]};
+		outline: none;
+	}
 `;

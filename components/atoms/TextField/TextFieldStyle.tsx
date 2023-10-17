@@ -15,21 +15,20 @@ export const SyledTextField = styled.input<
 			color: "gray.900",
 			borderRadius: props.borderRadius ? props.borderRadius : 3,
 			border: "1px solid",
-			borderColor: "gray.210",
+			borderColor: "gray.200",
 			width: props.fullwidth ? "100%" : "inherit",
 			outline: "none",
 			fontFamily: "inherit",
 			fontWeight: "400",
-			"&:hover": {
-				borderColor: "gray.220",
-			},
+			// "&:hover": {
+			// 	borderColor: "gray.220",
+			// },
 			"&:disabled": {
 				color: "gray.450",
 			},
 			"&:focus": {
-				outlineColor: "primary.main",
 				border: "2px solid",
-				borderColor: "info.200",
+				borderColor: "primary.200",
 			},
 		}),
 	compose(color)
