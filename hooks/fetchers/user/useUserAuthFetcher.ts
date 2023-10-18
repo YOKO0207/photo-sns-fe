@@ -1,11 +1,12 @@
 import { fetcherService } from "@/adapters";
 import { BASE_BACKEND_URL, SYSTEM_MESSAGES } from "@/libs/constants";
 import { BACKEND_ROUTES, FRONTEND_PATH } from "@/libs/routes";
+import { useUserContext } from "@/states/contexts";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
 import { toast } from "react-toastify";
-import { UserLoginInput, UserRegisterInput } from "types";
+import { User, UserLoginInput, UserRegisterInput } from "types";
 
 const useCSRFTokenFetcher = () => {
 	const [isFormLoading, setIsFormLoading] = useState(false);
@@ -76,6 +77,7 @@ export const useUserLoginFetcher = () => {
 	const { showBoundary } = useErrorBoundary();
 	const { getCSRFToken } = useCSRFTokenFetcher();
 	const router = useRouter();
+	const { dispatch } = useUserContext();
 
 	const loginAsUser = async (apiUrl: string, input: UserLoginInput) => {
 		setIsFormLoading(true);
@@ -83,7 +85,8 @@ export const useUserLoginFetcher = () => {
 		if (csrfRes) {
 			try {
 				const res = await fetcherService.post(apiUrl, { ...input });
-				if (res && res.status >= 200 && res.status < 300) {
+				if (res && res.status >= 200 && res.status < 300 && res?.data?.data) {
+					dispatch({ type: "SET_USER_DATA", payload: res?.data?.data as User });
 					router.push(FRONTEND_PATH.HOME);
 				} else if (res?.data?.errors) {
 					return res.data.errors;
