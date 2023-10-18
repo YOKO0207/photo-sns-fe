@@ -17,22 +17,58 @@ import {
 	SpaceProps,
 	typography,
 	TypographyProps,
+	GridProps,
+	grid
 } from "styled-system";
+import { style } from "styled-system";
 
-interface Props
-	extends LayoutProps,
-		ColorProps,
-		PositionProps,
-		SpaceProps,
-		FlexProps,
-		BorderProps,
-		FlexboxProps,
-		TypographyProps {
-	shadow?: number;
+interface Props {
+	shadow?: string;
 	cursor?: string;
-	transition?: string;
+	gap?: string | number;
 }
 
-export const Box = styled.div<Props>(
-	compose(layout, space, color, position, flexbox, flex, border, typography)
+const gap = style({
+	prop: "gap",
+	cssProperty: "gap",
+});
+
+const cursor = style({
+	prop: "cursor",
+	cssProperty: "cursor",
+});
+
+const shadow = style({
+	prop: "shadow",
+	key: "shadows",
+	cssProperty: "boxShadow",
+});
+
+const customStyles = [gap, cursor, shadow];
+
+
+export const Box = styled.div<
+	Props &
+		LayoutProps &
+		ColorProps &
+		PositionProps &
+		SpaceProps &
+		FlexProps &
+		BorderProps &
+		FlexboxProps &
+		TypographyProps &
+		GridProps
+>(
+	compose(
+		layout,
+		space,
+		color,
+		position,
+		flexbox,
+		flex,
+		border,
+		typography,
+		grid,
+		...customStyles
+	)
 );
