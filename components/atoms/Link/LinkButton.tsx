@@ -16,8 +16,11 @@ import {
 	SpaceProps,
 	variant,
 } from "styled-system";
+import { FC } from "react";
+import { AnchorHTMLAttributes } from "react";
+import NextLink from "next/link";
 
-interface Props
+interface StyleProps
 	extends ColorProps,
 		BackgroundProps,
 		BorderProps,
@@ -30,7 +33,23 @@ interface Props
 	fullwidth?: boolean;
 }
 
-export const Button = styled.button<Props>(
+interface Props {
+	href: string;
+	query?: { [key: string]: any };
+} 
+
+export const LinkButton: FC<
+	StyleProps & Props & AnchorHTMLAttributes<HTMLAnchorElement>
+> = (props) => {
+	const { href, query, children, ...rest } = props;
+	return (
+		<StyledLinkButton href={{ pathname: href, query }} {...rest}>
+			{children}
+		</StyledLinkButton>
+	);
+};
+
+const StyledLinkButton = styled(NextLink)<StyleProps>(
 	({ color, fullwidth }) =>
 		systemCss({
 			display: "flex",
@@ -89,7 +108,7 @@ export const Button = styled.button<Props>(
 				fontSize: 14,
 			},
 			md: {
-				height: "42px",
+				height: "40px",
 				px: 30,
 				fontSize: 16,
 			},

@@ -1,2 +1,2 @@
 export * from "./LinkRouter";
-export * from "./LinkAction";
+export * from "./LinkButton";

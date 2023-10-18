@@ -1,6 +1,11 @@
 export const FRONTEND_PATH = {
 	HOME: "/",
 
+	POSTS: {
+		DETAIL: "/posts/[postId]",
+		NEW: "/posts/new",
+	},
+
 	USER: {
 		ACCOUNT: {
 			EMAIL: {
@@ -27,6 +32,7 @@ export const FRONTEND_PATH = {
 			INDEX: "/user/password-reset",
 			COMPLETED: "/user/password-reset/completed",
 		},
+		POSTS: "user/posts"
 	},
 
 	ERROR: {

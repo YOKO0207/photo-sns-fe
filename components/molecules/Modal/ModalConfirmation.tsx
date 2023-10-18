@@ -85,7 +85,7 @@ export const ModalConfirmation: FC<Props> = (props) => {
 					>
 						<Button
 							mr="12px"
-							size="small"
+							size="sm"
 							variant="contained"
 							color="grayVariant"
 							onClick={handleClose}
@@ -93,7 +93,7 @@ export const ModalConfirmation: FC<Props> = (props) => {
 							いいえ
 						</Button>
 						<Button
-							size="small"
+							size="sm"
 							variant="contained"
 							color="tertiary"
 							onClick={handleClickYes}

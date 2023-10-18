@@ -13,7 +13,7 @@ export const AppLayout: React.FC<Props> = (props) => {
 	return (
 		<Fragment>
 			<Header />
-			<Box my="24px" mx="40px" as="main">
+			<Box width={{_: "95%", md: "88%"}} margin="24px auto" as="main" minHeight="80vh">
 				<Breadcrumb breadcrumbList={breadcrumbList} mb="20px" />
 				{children}
 			</Box>
