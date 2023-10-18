@@ -6,11 +6,9 @@ import { SpaceProps } from "styled-system";
 interface Props extends SpaceProps {
 	note?: string;
 	name: string;
-	errorText?: string;
+	errorText?: string[] | string;
 	onChange: (file: File) => void;
 }
-
-const fileTypes = ["JPG", "PNG", "JPEG"];
 
 export const FileUploader: FC<Props> = (props) => {
 	const { note, name, errorText, onChange, ...rest } = props;
@@ -27,7 +25,7 @@ export const FileUploader: FC<Props> = (props) => {
 	useEffect(() => {
 		const elements = document.querySelectorAll("span");
 		const targetText = "Uploaded Successfully! Upload another?";
-		const changeText = "アップロードに成功しました。";
+		const changeText = " ";
 		elements.forEach((element) => {
 			if (element.textContent === targetText) {
 				element.textContent = changeText;
@@ -41,9 +39,8 @@ export const FileUploader: FC<Props> = (props) => {
 				ref={uploaderRef}
 				handleChange={handleChange}
 				name={name}
-				types={fileTypes}
 				classes={"file-drag-and-drop"}
-				label="ファイルをアップロード もしくはドラッグ&ドロップしてください"
+				label=" "
 				hoverTitle="ドロップ"
 				multiple={false}
 			/>
