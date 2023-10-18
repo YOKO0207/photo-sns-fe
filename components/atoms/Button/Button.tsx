@@ -39,6 +39,7 @@ export const Button = styled.button<Props>(
 			alignItems: "center",
 			outline: "none",
 			border: "none",
+			borderRadius: "20px",
 			cursor: "pointer",
 			fontSize: "1rem",
 			fontWeight: 600,
@@ -90,7 +91,7 @@ export const Button = styled.button<Props>(
 			md: {
 				height: "42px",
 				px: 30,
-				fontSize: 14,
+				fontSize: 16,
 			},
 			sm: {
 				height: "32px",
