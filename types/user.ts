@@ -4,6 +4,13 @@ export interface User {
 	name: string;
 	email: string;
 }
+export interface AppUser extends User {
+	isLoggedIn: boolean;
+}
+export interface ListUser {
+	id: number;
+	name: string;
+}
 
 // user account
 export type UserEmailUpdateInput = {
