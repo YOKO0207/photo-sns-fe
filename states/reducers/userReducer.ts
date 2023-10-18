@@ -1,10 +1,10 @@
-import { User } from "@/types";
+import { AppUser, User } from "@/types";
 
-export const userInitialState: User = {
+export const userInitialState: AppUser = {
 	id: 0,
 	email: "",
 	name: "",
-	user_type: 0,
+	isLoggedIn: false,
 };
 
 export type userStateType = typeof userInitialState;
@@ -26,7 +26,7 @@ export const userReducer = (
 				id: action.payload.id,
 				email: action.payload.email,
 				name: action.payload.name,
-				user_type: action.payload.user_type,
+				isLoggedIn: true,
 			};
 		case "UNSET_USER_DATA":
 			return {
