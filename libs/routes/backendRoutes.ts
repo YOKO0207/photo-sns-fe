@@ -21,4 +21,11 @@ export const BACKEND_ROUTES = {
 			PASSWORD_RESET: "user/password-reset",
 		},
 	},
+
+	POSTS: {
+		INDEX: "posts",
+		DETAIL: "posts/[postId]",
+		NEW: "posts/new",
+		DELETE: "posts/[postId]/delete",
+	}
 };
