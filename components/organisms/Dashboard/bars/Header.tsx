@@ -2,15 +2,13 @@ import {
 	Box,
 	Card,
 	H5,
-	LSpan,
+	LinkButton,
 	LinkRouter,
 	MSpan,
-	Typography
+	Typography,
 } from "@/components/atoms";
-import { ModalConfirmation, Alphabetavatar } from "@/components/molecules";
-import {
-	useUserLogoutHandler
-} from "@/hooks";
+import { Alphabetavatar, ModalConfirmation } from "@/components/molecules";
+import { useUserLogoutHandler } from "@/hooks";
 import { FRONTEND_PATH } from "@/libs/routes";
 import { useUserContext } from "@/states/contexts";
 import { colors } from "@/styles";
@@ -19,9 +17,10 @@ import { useState } from "react";
 import styled from "styled-components";
 
 export const Header = () => {
+	const { state: user } = useUserContext();
 	return (
 		<Box
-			bg="gray.10"
+			bg="gray.white"
 			display="flex"
 			position="sticky"
 			top="0"
@@ -35,16 +34,47 @@ export const Header = () => {
 			borderColor="gray2.50"
 		>
 			<LinkRouter href={FRONTEND_PATH.HOME}>
-				<H5 width="160px" color="gray2.200" fontWeight="bold">
+				<H5 fontSize="20px" width="160px" color="primary.500" fontWeight="bold">
 					Pointy
 				</H5>
 			</LinkRouter>
-			<HeaderMenu />
+			{user.isLoggedIn ? (
+				<Box display="flex" gap="12px" alignItems="center">
+					<LinkButton
+						href={FRONTEND_PATH.POSTS.NEW}
+						color="primary"
+						variant="outlined"
+						size="md"
+					>
+						投稿作成
+					</LinkButton>
+					<LoggedInHeaderMenu />
+				</Box>
+			) : (
+				<Box display="flex" gap="8px">
+					<LinkButton
+						href={FRONTEND_PATH.USER.LOGIN}
+						color="primary"
+						variant="outlined"
+						size="md"
+					>
+						ログイン
+					</LinkButton>
+					<LinkButton
+						href={FRONTEND_PATH.USER.REGISTER}
+						color="primary"
+						variant="contained"
+						size="md"
+					>
+						新規登録
+					</LinkButton>
+				</Box>
+			)}
 		</Box>
 	);
 };
 
-const HeaderMenu = () => {
+const LoggedInHeaderMenu = () => {
 	const { state: user } = useUserContext();
 	const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
 
