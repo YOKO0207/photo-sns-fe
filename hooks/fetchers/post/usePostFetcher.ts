@@ -1,12 +1,13 @@
 import { fetcherService } from "@/adapters";
 import { BASE_API_URL, SYSTEM_MESSAGES } from "@/libs/constants";
 import { BACKEND_ROUTES } from "@/libs/routes";
-import { SWRFetcher } from "@/libs/utils";
-import { useState } from "react";
+import { SWRFetcher, generateUrl } from "@/libs/utils";
+import { useRouter } from "next/router";
+import { useCallback, useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
 import { toast } from "react-toastify";
 import useSWR, { mutate } from "swr";
-import { PostCreateInput, Posts } from "types";
+import { Post, PostCreateInput, Posts } from "types";
 
 export const usePostCreateFetcher = () => {
 	const [isFormLoading, setIsFormLoading] = useState(false);
@@ -80,12 +81,37 @@ export const usePostDeleteFetcher = () => {
 	};
 };
 
-const basePhotoMaterialIndexApiUrl = `${BASE_API_URL}/${BACKEND_ROUTES.POSTS.INDEX}`;
+const basePostIndexApiUrl = `${BASE_API_URL}/${BACKEND_ROUTES.POSTS.INDEX}`;
+const basePostDetailApiUrl = `${BASE_API_URL}/${BACKEND_ROUTES.POSTS.DETAIL}`;
 
 export const usePostIndexSWR = () => {
-	return useSWR(basePhotoMaterialIndexApiUrl, SWRFetcher<Posts[]>, {
+	return useSWR(basePostIndexApiUrl, SWRFetcher<Posts[]>, {
 		revalidateIfStale: true,
 		revalidateOnFocus: false,
 		revalidateOnReconnect: false,
 	});
 };
+
+export const usePostDetailSWR = () => {
+	const router = useRouter();
+	const { showBoundary } = useErrorBoundary();
+
+	const getKey = useCallback(() => {
+		if (!router.isReady) {
+			return null;
+		}
+		const { postId } = router.query;
+		if (postId == undefined) {
+			showBoundary(SYSTEM_MESSAGES.ILEGAL_URL);
+			return null;
+		}
+		return generateUrl(basePostDetailApiUrl, { postId });
+	}, [router.isReady, router.query, showBoundary]);
+
+	return useSWR(getKey, SWRFetcher<Post>, {
+		revalidateIfStale: true,
+		revalidateOnFocus: false,
+		revalidateOnReconnect: false,
+	});
+};
+
