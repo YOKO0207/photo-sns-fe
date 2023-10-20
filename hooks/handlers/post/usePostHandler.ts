@@ -29,3 +29,30 @@ export const usePostCreateHandler = () => {
 
 	return { handlePostCreate, isFormLoading };
 };
+
+export const usePostDeleteHandler = () => {
+	const { deletePost, isFormLoading } = usePostDeleteFetcher();
+	const router = useRouter();
+	const { showBoundary } = useErrorBoundary();
+
+	const handlePostDelete = () => {
+		if (router.isReady) {
+			const { postId } = router.query;
+			if (postId == undefined) {
+				showBoundary(SYSTEM_MESSAGES.ILEGAL_URL);
+				return null;
+			}
+
+			const apiUrl = generateUrl(basePostDetailBaseApiUrl, {
+				postId,
+			});
+
+			const validationErrors = deletePost({
+				apiUrl,
+				mutateApiUrls: [basePostIndexApiUrl],
+			});
+			return validationErrors;
+		}
+	};
+	return { handlePostDelete, isFormLoading };
+};
