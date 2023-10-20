@@ -18,9 +18,9 @@ const textSize = {
 export const UserName: FC<ListUser & Props> = (props) => {
 	const { name, size, textColor } = props;
 	return (
-		<Box display="flex" alignItems="center" gap="4px">
+		<Box display="inline-flex" alignItems="center" gap="4px">
 			<Alphabetavatar name={name[0]} size={size} />
-			<MSpan fontSize={textSize[size]} color={textColor || "gray.500"}>
+			<MSpan fontSize={textSize[size]} color={textColor || "gray.800"}>
 				{name}
 			</MSpan>
 		</Box>
