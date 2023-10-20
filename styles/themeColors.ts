@@ -29,7 +29,7 @@ const error = {
 	200: "#FF8C8C",
 };
 const gray = {
-	950: "#222222",
+	950: "#111111",
 	900: "#2C2C2C",
 	800: "#2C2C2C",
 	600: "#383838",
@@ -43,10 +43,10 @@ const gray = {
 	200: "#C2C3C6",
 	150: "#DEDEDE",
 	120: "#E4E7EC",
-  100: "#F5F5F5",
+	100: "#F5F5F5",
 	50: "#F9FAFB",
-  "black": "black",
-	"white": "white",
+	black: "black",
+	white: "white",
 };
 const gray2 = {
 	200: "#626578",

@@ -66,7 +66,7 @@ export const H1: React.FC<Props> = (props) => (
 		mb="0"
 		mt="0"
 		fontWeight="300"
-		fontSize="30px"
+		fontSize="26px"
 		{...props}
 	/>
 );

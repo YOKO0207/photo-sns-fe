@@ -25,7 +25,13 @@ export const BACKEND_ROUTES = {
 	POSTS: {
 		INDEX: "posts",
 		DETAIL: "posts/[postId]",
-		NEW: "posts/new",
-		DELETE: "posts/[postId]/delete",
+	},
+	POST_THREADS: {
+		INDEX: "posts/[postId]/post-threads",
+		DETAIL: "post-threads/[postThreadId]",
+	},
+	POST_THREAD_COMMENTS: {
+		INDEX: "post-threads/[postThreadId]/post-thread-comments",
+		DETAIL: "post-thread-comments/[postThreadCommentId]",
 	}
 };
