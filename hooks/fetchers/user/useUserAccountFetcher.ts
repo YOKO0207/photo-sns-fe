@@ -1,5 +1,6 @@
 import { fetcherService } from "@/adapters";
 import { SYSTEM_MESSAGES } from "@/libs/constants";
+import { FRONTEND_PATH } from "@/libs/routes";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
@@ -15,12 +16,12 @@ export const useUserPasswordUpdateFetcher = () => {
 	const { showBoundary } = useErrorBoundary();
 
 	const updateUserPassword = async (
-		apiUrl: string,
-		input: UserPasswordUpdateInput
+		args: {apiUrl: string, input: UserPasswordUpdateInput}
 	) => {
+		const { apiUrl, input } = args;
 		setIsFormLoading(true);
 		try {
-			const res = await fetcherService.put(apiUrl, { ...input });
+			const res = await fetcherService.put(apiUrl, input);
 			if (res && res.status >= 200 && res.status < 300) {
 				toast.success(res?.data?.message || SYSTEM_MESSAGES.SUCCESS);
 			} else if (res?.data?.errors) {
@@ -47,15 +48,17 @@ export const useUserEmailUpdateFetcher = () => {
 	const router = useRouter();
 
 	const updateUserEmail = async (
-		apiUrl: string,
-		redirectPath: string,
-		input: UserEmailUpdateInput
+		args: {
+			apiUrl: string,
+			input: UserEmailUpdateInput
+		}
 	) => {
+		const { apiUrl, input } = args;
 		setIsFormLoading(true);
 		try {
-			const res = await fetcherService.put(apiUrl, { ...input });
+			const res = await fetcherService.put(apiUrl, input);
 			if (res && res.status >= 200 && res.status < 300) {
-				router.push(redirectPath);
+				router.push(FRONTEND_PATH.USER.ACCOUNT.EMAIL.SENT);
 			} else if (res?.data?.errors) {
 				return res.data.errors;
 			} else {
@@ -79,12 +82,12 @@ export const useUserProfileUpdateFetcher = () => {
 	const { showBoundary } = useErrorBoundary();
 
 	const updateUserProfile = async (
-		apiUrl: string,
-		input: UserNameUpdateInput
+		args: {apiUrl: string, input: UserNameUpdateInput}
 	) => {
+		const { apiUrl, input } = args;
 		setIsFormLoading(true);
 		try {
-			const res = await fetcherService.put(apiUrl, { ...input });
+			const res = await fetcherService.put(apiUrl, input);
 			if (res && res.status >= 200 && res.status < 300) {
 				toast.success(res?.data?.message || SYSTEM_MESSAGES.SUCCESS);
 			} else if (res?.data?.errors) {
