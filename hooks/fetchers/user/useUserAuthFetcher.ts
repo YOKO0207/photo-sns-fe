@@ -42,17 +42,16 @@ export const useUserRegisterFetcher = () => {
 	const router = useRouter();
 
 	const registerAsUser = async (
-		apiUrl: string,
-		redirectPath: string,
-		input: UserRegisterInput
+		args: {apiUrl: string, input: UserRegisterInput}
 	) => {
+		const { apiUrl, input } = args;
 		setIsFormLoading(true);
 		const csrfRes = await getCSRFToken();
 		if (csrfRes) {
 			try {
-				const res = await fetcherService.post(apiUrl, { ...input });
+				const res = await fetcherService.post(apiUrl, input);
 				if (res && res.status >= 200 && res.status < 300) {
-					router.push(redirectPath);
+					router.push(FRONTEND_PATH.HOME);
 				} else if (res?.data?.errors) {
 					return res.data.errors;
 				} else {
@@ -79,12 +78,13 @@ export const useUserLoginFetcher = () => {
 	const router = useRouter();
 	const { dispatch } = useUserContext();
 
-	const loginAsUser = async (apiUrl: string, input: UserLoginInput) => {
+	const loginAsUser = async (args: {apiUrl: string, input: UserLoginInput}) => {
+		const { apiUrl, input } = args;
 		setIsFormLoading(true);
 		const csrfRes = await getCSRFToken();
 		if (csrfRes) {
 			try {
-				const res = await fetcherService.post(apiUrl, { ...input });
+				const res = await fetcherService.post(apiUrl, input);
 				if (res && res.status >= 200 && res.status < 300 && res?.data?.data) {
 					dispatch({ type: "SET_USER_DATA", payload: res?.data?.data as User });
 					router.push(FRONTEND_PATH.HOME);
@@ -111,14 +111,17 @@ export const useUserLogoutFetcher = () => {
 	const [isFormLoading, setIsFormLoading] = useState(false);
 	const { showBoundary } = useErrorBoundary();
 	const router = useRouter();
+	const { dispatch } = useUserContext();
 
-	const logoutAsUser = async (apiUrl: string, redirectPath: string) => {
+	const logoutAsUser = async (args: {apiUrl: string}) => {
+		const { apiUrl } = args;
 		setIsFormLoading(true);
 		try {
 			const res = await fetcherService.post(apiUrl, {});
 			if (res && res.status >= 200 && res.status < 300) {
 				toast.success(res?.data?.message || SYSTEM_MESSAGES.SUCCESS);
-				router.push(redirectPath);
+				dispatch({type: "UNSET_USER_DATA"})
+				router.push(FRONTEND_PATH.HOME);
 			} else {
 				toast.error(res?.data?.message || SYSTEM_MESSAGES.FAILURE);
 			}
