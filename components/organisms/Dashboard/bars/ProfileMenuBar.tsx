@@ -38,36 +38,41 @@ export const ProfileMenuBar: FC<Props> = (props) => {
 
 	return (
 		<Box
-			display="flex"
-			alignItems="center"
-			px={px}
-			py={py}
-			{...props}
-			flexDirection="row"
-			mb="8px"
+			// display="flex"
+			// alignItems="center"
+			// px={px}
+			// py={py}
+			// {...props}
+			//flexDirection="row"
+			//mb="8px"
+			width="100%"
 		>
 			<Fragment>
 				{profileMenuLink.map((item: ProfileMenuLinkProps) => (
 					<Fragment key={item.title}>
 						<LinkRouter
-							mr="20px"
+							//mr="20px"
+							mb="16px"
 							href={item.href}
-							color="gray.400"
+							color="gray.900"
+							display="block"
+							px="12px"
 							currentPathStyle={{
-								color: "white",
-								backgroundColor: colors.primary[500],
-								borderRadius: "4px",
-								padding: "6px 12px",
+							color: "white",
+							backgroundColor: colors.primary[500],
+							//borderBottom: `3px solid ${colors.gray[900]}`,
+							borderRadius: "4px",
+							padding: "8px 12px",
 							}}
 						>
-							<Box display="flex" alignItems="center" py="5px">
-								<Box display="flex" mr="10px" alignItems="center">
+							<Box display="flex" alignItems="center" >
+								{/* <Box display="flex" mr="10px" alignItems="center">
 									<Icon
 										icon={item.iconName}
 										width={20}
 										color="secondary.dark"
 									/>
-								</Box>
+								</Box> */}
 								<Typography className="sidebar-text-link">
 									{item.title}
 								</Typography>
