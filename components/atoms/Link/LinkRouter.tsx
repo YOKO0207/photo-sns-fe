@@ -9,12 +9,14 @@ import {
 	compose,
 	TypographyProps,
 	typography,
+	LayoutProps,
+	layout
 } from "styled-system";
 import systemCss, { CSSProperties } from "@styled-system/css";
 import { removeLastSegment } from "@/libs/utils";
 import styled from "styled-components";
 
-interface Props extends SpaceProps, ColorProps, TypographyProps {
+interface Props extends SpaceProps, ColorProps, TypographyProps, LayoutProps {
 	href: string;
 	query?: { [key: string]: any };
 	currentPathStyle?: CSSProperties;
@@ -41,7 +43,7 @@ export const LinkRouter: React.FC<
 	);
 };
 
-const StyledLink = styled(NextLink)<SpaceProps & ColorProps>(
+const StyledLink = styled(NextLink)<SpaceProps & ColorProps & LayoutProps>(
 	({ style }) =>
 		systemCss({
 			position: "relative",
@@ -55,5 +57,5 @@ const StyledLink = styled(NextLink)<SpaceProps & ColorProps>(
 			},
 			...style,
 		}),
-	compose(space, color, typography)
+	compose(space, color, typography, layout)
 );
