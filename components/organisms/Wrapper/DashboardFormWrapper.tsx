@@ -21,8 +21,10 @@ export const DashboardFormWrapper: FC<Props> = (props) => {
 				borderRadius="5px"
 				py="50px"
 				px="40px"
-				style={{ boxShadow: shadows[20] }}
 				maxWidth={maxWidth}
+				width="100%"
+				border="1px solid"
+				borderColor="gray.150"
 			>
 				<Box>
 					<Box textAlign="left">
