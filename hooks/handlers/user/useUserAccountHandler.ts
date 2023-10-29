@@ -1,9 +1,9 @@
 import {
 	useUserEmailUpdateFetcher,
-	useUserProfileUpdateFetcher,
 	useUserPasswordUpdateFetcher,
+	useUserProfileUpdateFetcher,
 } from "@/hooks/fetchers";
-import { BACKEND_ROUTES, FRONTEND_PATH } from "@/libs/routes";
+import { BACKEND_ROUTES } from "@/libs/routes";
 import {
 	UserEmailUpdateInput,
 	UserNameUpdateInput,
@@ -13,12 +13,10 @@ import {
 export const useUserUpdateEmailHandler = () => {
 	const { updateUserEmail, isFormLoading } = useUserEmailUpdateFetcher();
 
-	const handleUserUpdateEmail = (input: UserEmailUpdateInput) => {
+	const handleUserUpdateEmail = (args: { input: UserEmailUpdateInput }) => {
+		const { input } = args;
 		const apiUrl = BACKEND_ROUTES.USER.ACCOUNT.EMAIL;
-		const redirectPath = FRONTEND_PATH.USER.ACCOUNT.EMAIL.SENT;
-		const validationErrors = updateUserEmail(apiUrl, redirectPath, {
-			...input,
-		});
+		const validationErrors = updateUserEmail({ apiUrl, input });
 		return validationErrors;
 	};
 	return { handleUserUpdateEmail, isFormLoading };
@@ -27,9 +25,12 @@ export const useUserUpdateEmailHandler = () => {
 export const useUserUpdatePasswordHandler = () => {
 	const { updateUserPassword, isFormLoading } = useUserPasswordUpdateFetcher();
 
-	const handleUserUpdatePassword = (input: UserPasswordUpdateInput) => {
+	const handleUserUpdatePassword = (args: {
+		input: UserPasswordUpdateInput;
+	}) => {
+		const { input } = args;
 		const apiUrl = BACKEND_ROUTES.USER.ACCOUNT.PASSWORD;
-		const validationErrors = updateUserPassword(apiUrl, { ...input });
+		const validationErrors = updateUserPassword({ apiUrl, input });
 		return validationErrors;
 	};
 	return { handleUserUpdatePassword, isFormLoading };
@@ -38,9 +39,10 @@ export const useUserUpdatePasswordHandler = () => {
 export const useUserUpdateProfileHandler = () => {
 	const { updateUserProfile, isFormLoading } = useUserProfileUpdateFetcher();
 
-	const handleUserUpdateProfile = (input: UserNameUpdateInput) => {
+	const handleUserUpdateProfile = (args: { input: UserNameUpdateInput }) => {
+		const { input } = args;
 		const apiUrl = BACKEND_ROUTES.USER.ACCOUNT.NAME;
-		const validationErrors = updateUserProfile(apiUrl, { ...input });
+		const validationErrors = updateUserProfile({ apiUrl, input });
 		return validationErrors;
 	};
 	return { handleUserUpdateProfile, isFormLoading };
