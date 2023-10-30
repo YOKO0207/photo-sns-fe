@@ -8,11 +8,9 @@ const PostDetailPage: NextPage = () => {
 	const { data, isLoading } = usePostDetailSWR();
 	const post = data?.data?.data;
 	return (
-		<AppLayout>
+		<AppLayout size="md">
 			{post && (
 				<Box
-					width="80%"
-					m="0 auto"
 					display="flex"
 					gap="24px"
 					shadow="40"

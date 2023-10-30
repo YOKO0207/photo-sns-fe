@@ -11,7 +11,7 @@ import { deviceSize } from "@/styles";
 const IndexPage: NextPage = () => {
 	const { data: posts, isLoading } = usePostIndexSWR();
 	return (
-		<AppLayout>
+		<AppLayout size="lg">
 			<StyledBox>
 				{posts?.data?.data?.map((item: Posts, index: number) => (
 					<Box key={item.id} style={{ breakInside: "avoid" }}>
