@@ -14,7 +14,7 @@ const UserAccountEmailPage: NextPage = () => {
 	const { handleUserUpdateEmail, isFormLoading } = useUserUpdateEmailHandler();
 
 	const handleFormSubmit = async (input: UserEmailUpdateInput) => {
-		const validationErrors = await handleUserUpdateEmail({ ...input });
+		const validationErrors = await handleUserUpdateEmail({ input });
 		return validationErrors;
 	};
 
@@ -26,99 +26,105 @@ const UserAccountEmailPage: NextPage = () => {
 	};
 
 	return (
-		<AppLayout breadcrumbList={breadcrumbList}>
-			<ProfileMenuBar />
-			<DashboardFormWrapper
-				title="メールアドレス変更ページ"
-				descriptions={[
-					"フォーム送信後、本人確認メールを送信します。",
-					"そちらのメールに記載されているURLをクリックして、メールアドレス変更の手続きを完了してください。",
-				]}
-				isFormLoading={isFormLoading}
-				maxWidth="600px"
-			>
-				<Formik
-					initialValues={initialValues}
-					enableReinitialize={true}
-					onSubmit={async (input, { setErrors }) => {
-						const validationErrors = await handleFormSubmit(input);
-						if (validationErrors) {
-							setErrors(validationErrors);
-						}
-					}}
-					validationSchema={userEmailUpdateInputSchema}
-				>
-					{({
-						values,
-						errors,
-						touched,
-						handleBlur,
-						handleChange,
-						handleSubmit,
-						isValid,
-						dirty,
-					}) => {
-						return (
-							<form onSubmit={handleSubmit}>
-								<Box mt="20px">
-									<Box mb="24px">
-										<TextField
-											label="メールアドレス"
-											type="email"
-											name="email"
-											fullwidth
-											mb="16px"
-											onBlur={handleBlur}
-											onChange={handleChange}
-											value={values.email}
-											errorText={
-												touched["email"] && errors["email"]
-													? errors["email"]
-													: ""
-											}
-										/>
-										<TextField
-											label="現在のパスワード"
-											type="password"
-											name="password"
-											fullwidth
-											mb="16px"
-											onBlur={handleBlur}
-											onChange={handleChange}
-											value={values.password}
-											errorText={
-												touched["password"] && errors["password"]
-													? errors["password"]
-													: ""
-											}
-										/>
-									</Box>
-									<Button
-										mb="24px"
-										variant="contained"
-										color="primary"
-										type="submit"
-										fullwidth
-										size="md"
-										disabled={
-											!isValid ||
-											isEmptyObject(R.pickBy(Boolean, values)) ||
-											!dirty ||
-											isFormLoading
-										}
-									>
-										{isFormLoading ? (
-											<Spinner color="white" size={20} />
-										) : (
-											<LSpan fontWeight={400}>本人確認メールを送信する</LSpan>
-										)}
-									</Button>
-								</Box>
-							</form>
-						);
-					}}
-				</Formik>
-			</DashboardFormWrapper>
+		<AppLayout>
+			<Box display="flex" gap="40px" my="54px">
+				<Box width="23%"><ProfileMenuBar /></Box>
+				<Box width="77%">
+					<DashboardFormWrapper
+						title="メールアドレス変更ページ"
+						descriptions={[
+							"フォーム送信後、本人確認メールを送信します。",
+							"そちらのメールに記載されているURLをクリックして、メールアドレス変更の手続きを完了してください。",
+						]}
+						isFormLoading={isFormLoading}
+					>
+						<Formik
+							initialValues={initialValues}
+							enableReinitialize={true}
+							onSubmit={async (input, { setErrors }) => {
+								const validationErrors = await handleFormSubmit(input);
+								if (validationErrors) {
+									setErrors(validationErrors);
+								}
+							}}
+							validationSchema={userEmailUpdateInputSchema}
+						>
+							{({
+								values,
+								errors,
+								touched,
+								handleBlur,
+								handleChange,
+								handleSubmit,
+								isValid,
+								dirty,
+							}) => {
+								return (
+									<form onSubmit={handleSubmit}>
+										<Box mt="20px">
+											<Box mb="24px">
+												<TextField
+													label="メールアドレス"
+													type="email"
+													name="email"
+													fullwidth
+													mb="16px"
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.email}
+													errorText={
+														touched["email"] && errors["email"]
+															? errors["email"]
+															: ""
+													}
+												/>
+												<TextField
+													label="現在のパスワード"
+													type="password"
+													name="password"
+													fullwidth
+													mb="16px"
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.password}
+													errorText={
+														touched["password"] && errors["password"]
+															? errors["password"]
+															: ""
+													}
+												/>
+											</Box>
+											<Button
+												mb="24px"
+												variant="contained"
+												color="primary"
+												type="submit"
+												
+												size="md"
+												width="300px"
+												disabled={
+													!isValid ||
+													isEmptyObject(R.pickBy(Boolean, values)) ||
+													!dirty ||
+													isFormLoading
+												}
+											>
+												{isFormLoading ? (
+													<Spinner color="white" size={20} />
+												) : (
+													<LSpan fontWeight={400}>
+														本人確認メールを送信する
+													</LSpan>
+												)}
+											</Button>
+										</Box>
+									</form>
+								);
+							}}
+						</Formik>
+					</DashboardFormWrapper>
+				</Box>
+			</Box>
 		</AppLayout>
 	);
 };
