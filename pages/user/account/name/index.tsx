@@ -16,7 +16,7 @@ const UserAccountNamePage: NextPage = () => {
 		useUserUpdateProfileHandler();
 
 	const handleFormSubmit = async (input: UserNameUpdateInput) => {
-		const validationErrors = await handleUserUpdateProfile({ ...input });
+		const validationErrors = await handleUserUpdateProfile({ input });
 		return validationErrors;
 	};
 
@@ -27,78 +27,85 @@ const UserAccountNamePage: NextPage = () => {
 	};
 
 	return (
-		<AppLayout breadcrumbList={breadcrumbList}>
-			<ProfileMenuBar />
-			<DashboardFormWrapper
-				title="プロフィール編集ページ"
-				isFormLoading={isFormLoading}
-				maxWidth="600px"
-			>
-				<Formik
-					initialValues={initialValues}
-					enableReinitialize={true}
-					onSubmit={async (input, { setErrors }) => {
-						const validationErrors = await handleFormSubmit(input);
-						if (validationErrors) {
-							setErrors(validationErrors);
-						}
-					}}
-					validationSchema={userNameUpdateInputSchema}
-				>
-					{({
-						values,
-						errors,
-						touched,
-						handleBlur,
-						handleChange,
-						handleSubmit,
-						isValid,
-						dirty,
-					}) => {
-						return (
-							<form onSubmit={handleSubmit}>
-								<Box mt="20px">
-									<Box mb="24px">
-										<TextField
-											label="名前"
-											type="text"
-											name="name"
-											fullwidth
-											mb="16px"
-											onBlur={handleBlur}
-											onChange={handleChange}
-											value={values.name}
-											errorText={
-												touched["name"] && errors["name"] ? errors["name"] : ""
-											}
-										/>
-									</Box>
-									<Button
-										mb="24px"
-										variant="contained"
-										color="primary"
-										type="submit"
-										fullwidth
-										size="md"
-										disabled={
-											!isValid ||
-											isEmptyObject(R.pickBy(Boolean, values)) ||
-											!dirty ||
-											isFormLoading
-										}
-									>
-										{isFormLoading ? (
-											<Spinner color="white" size={20} />
-										) : (
-											<LSpan fontWeight={400}>名前を更新する</LSpan>
-										)}
-									</Button>
-								</Box>
-							</form>
-						);
-					}}
-				</Formik>
-			</DashboardFormWrapper>
+		<AppLayout>
+			<Box display="flex" gap="40px" my="54px">
+				<Box width="23%">
+					<ProfileMenuBar />
+				</Box>
+				<Box width="77%">
+					<DashboardFormWrapper
+						title="プロフィール編集ページ"
+						isFormLoading={isFormLoading}
+					>
+						<Formik
+							initialValues={initialValues}
+							enableReinitialize={true}
+							onSubmit={async (input, { setErrors }) => {
+								const validationErrors = await handleFormSubmit(input);
+								if (validationErrors) {
+									setErrors(validationErrors);
+								}
+							}}
+							validationSchema={userNameUpdateInputSchema}
+						>
+							{({
+								values,
+								errors,
+								touched,
+								handleBlur,
+								handleChange,
+								handleSubmit,
+								isValid,
+								dirty,
+							}) => {
+								return (
+									<form onSubmit={handleSubmit}>
+										<Box mt="20px">
+											<Box mb="24px">
+												<TextField
+													label="名前"
+													type="text"
+													name="name"
+													fullwidth
+													mb="16px"
+													onBlur={handleBlur}
+													onChange={handleChange}
+													value={values.name}
+													errorText={
+														touched["name"] && errors["name"]
+															? errors["name"]
+															: ""
+													}
+												/>
+											</Box>
+											<Button
+												mb="24px"
+												variant="contained"
+												color="primary"
+												type="submit"
+												size="md"
+												width="300px"
+												disabled={
+													!isValid ||
+													isEmptyObject(R.pickBy(Boolean, values)) ||
+													!dirty ||
+													isFormLoading
+												}
+											>
+												{isFormLoading ? (
+													<Spinner color="white" size={20} />
+												) : (
+													<LSpan fontWeight={400}>名前を更新する</LSpan>
+												)}
+											</Button>
+										</Box>
+									</form>
+								);
+							}}
+						</Formik>
+					</DashboardFormWrapper>
+				</Box>
+			</Box>
 		</AppLayout>
 	);
 };
