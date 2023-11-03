@@ -17,7 +17,7 @@ const UserLoginPage: NextPage = () => {
 	const { handleUserLogin, isFormLoading } = useUserLoginHandler();
 
 	const handleFormSubmit = async (input: UserLoginInput) => {
-		const validationErrors = await handleUserLogin({ ...input });
+		const validationErrors = await handleUserLogin({ input });
 		return validationErrors;
 	};
 
