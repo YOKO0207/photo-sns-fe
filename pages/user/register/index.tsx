@@ -17,7 +17,7 @@ const UserRegisterPage: NextPage = () => {
 	const { handleUserRegister, isFormLoading } = useUserRegisterHandler();
 
 	const handleFormSubmit = async (input: UserRegisterInput) => {
-		const validationErrors = await handleUserRegister({ ...input });
+		const validationErrors = await handleUserRegister({ input });
 		return validationErrors;
 	};
 
