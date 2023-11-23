@@ -12,6 +12,7 @@ const IndexPage: NextPage = () => {
 	const { data: posts, isLoading } = usePostIndexSWR();
 	return (
 		<AppLayout size="lg">
+			<p>deployed</p>
 			<StyledBox>
 				{posts?.data?.data?.map((item: Posts, index: number) => (
 					<Box key={item.id} style={{ breakInside: "avoid" }}>
