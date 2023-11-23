@@ -60,14 +60,14 @@ export const Header = () => {
 					>
 						ログイン
 					</LinkButton>
-					<LinkButton
+					{/* <LinkButton
 						href={FRONTEND_PATH.USER.REGISTER}
 						color="primary"
 						variant="contained"
 						size="md"
 					>
 						新規登録
-					</LinkButton>
+					</LinkButton> */}
 				</Box>
 			)}
 		</Box>
@@ -109,9 +109,9 @@ const LoggedInHeaderMenu = () => {
 							bg="gray.white"
 						>
 							<Box
-								borderBottomWidth={"1px"}
-								borderBottomStyle="solid"
-								borderBottomColor="gray.200"
+								// borderBottomWidth={"1px"}
+								// borderBottomStyle="solid"
+								// borderBottomColor="gray.200"
 								px="20px"
 								py="15px"
 							>
@@ -122,7 +122,7 @@ const LoggedInHeaderMenu = () => {
 									{user?.email || ""}
 								</MSpan>
 							</Box>
-							<Box px="20px" py="10px">
+							{/* <Box px="20px" py="10px">
 								<LinkRouter
 									href={FRONTEND_PATH.USER.ACCOUNT.NAME}
 									color="gray.900"
@@ -186,7 +186,7 @@ const LoggedInHeaderMenu = () => {
 										<Typography>パスワード</Typography>
 									</Box>
 								</LinkRouter>
-							</Box>
+							</Box> */}
 							<Box
 								borderTopWidth={"1px"}
 								borderTopStyle="solid"
@@ -197,6 +197,7 @@ const LoggedInHeaderMenu = () => {
 								<ModalConfirmation
 									title="ログアウトしますか？"
 									onClickYes={handleUserLogout}
+									onClose={() => setIsHeaderMenuOpen(false)}
 								>
 									<Box
 										display="flex"

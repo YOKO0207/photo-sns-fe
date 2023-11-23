@@ -43,7 +43,9 @@ export const LinkRouter: React.FC<
 	);
 };
 
-const StyledLink = styled(NextLink)<SpaceProps & ColorProps & LayoutProps>(
+const StyledLink = styled(NextLink)<
+	SpaceProps & ColorProps & LayoutProps 
+>(
 	({ style }) =>
 		systemCss({
 			position: "relative",
@@ -53,7 +55,6 @@ const StyledLink = styled(NextLink)<SpaceProps & ColorProps & LayoutProps>(
 			},
 			"&:hover": {
 				textDecoration: "none",
-				opacity: 0.7,
 			},
 			...style,
 		}),

@@ -1,12 +1,16 @@
 import { Box, Image } from "@/components/atoms";
 import { Thread, ThreadNew } from "@/components/organisms";
 import { usePostThreadIndexSWR } from "@/hooks";
-import { ThreadProvider, useThreadContext, useUserContext } from "@/states/contexts";
+import {
+	ThreadProvider,
+	useThreadContext,
+	useUserContext,
+} from "@/states/contexts";
 import { DeltaPosition, Post, PostThreads, Posts } from "@/types";
 import { FC, useState } from "react";
 
 // TDDO make custom hook
-export const PostCard: FC<Post> = (props) => {
+export const PostDetailCard: FC<Post> = (props) => {
 	return (
 		<ThreadProvider>
 			<PostCardRoot {...props} />
@@ -49,15 +53,15 @@ const PostCardRoot: FC<Posts> = (props) => {
 	return (
 		<Box
 			style={{
-				cursor: !state.threadOpen && loggedInUser.isLoggedIn
-					? "url('/assets/images/comment-cursor-icon.png'), auto"
-					: "auto",
+				cursor:
+					!state.threadOpen && loggedInUser.isLoggedIn
+						? "url('/assets/images/comment-cursor-icon.png'), auto"
+						: "auto",
 			}}
 			position="relative"
 			onClick={!state.threadOpen ? handleNewThreadOpen : () => {}}
 			width="460px"
 			height="580px"
-			
 		>
 			<Image
 				position="absolute"

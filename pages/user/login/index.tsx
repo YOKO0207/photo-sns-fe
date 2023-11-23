@@ -36,16 +36,16 @@ const UserLoginPage: NextPage = () => {
 				title="ログインページ"
 				descriptions={["こちらからログインしてください。"]}
 				divibarText="または"
-				footerLinks={[
-					{
-						href: FRONTEND_PATH.USER.REGISTER,
-						text: "会員登録がお済みではない方はこちら",
-					},
-					{
-						href: FRONTEND_PATH.USER.PASSWORD_FORGET.INDEX,
-						text: "パスワードをお忘れの方はこちら",
-					},
-				]}
+				// footerLinks={[
+				// 	{
+				// 		href: FRONTEND_PATH.USER.REGISTER,
+				// 		text: "会員登録がお済みではない方はこちら",
+				// 	},
+				// 	{
+				// 		href: FRONTEND_PATH.USER.PASSWORD_FORGET.INDEX,
+				// 		text: "パスワードをお忘れの方はこちら",
+				// 	},
+				// ]}
 				isFormLoading={isFormLoading}
 			>
 				<Formik

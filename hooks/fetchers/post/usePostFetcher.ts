@@ -1,6 +1,6 @@
 import { fetcherService } from "@/adapters";
 import { BASE_API_URL, SYSTEM_MESSAGES } from "@/libs/constants";
-import { BACKEND_ROUTES } from "@/libs/routes";
+import { BACKEND_ROUTES, FRONTEND_PATH } from "@/libs/routes";
 import { SWRFetcher, generateUrl } from "@/libs/utils";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
@@ -12,6 +12,7 @@ import { Post, PostCreateInput, Posts } from "types";
 export const usePostCreateFetcher = () => {
 	const [isFormLoading, setIsFormLoading] = useState(false);
 	const { showBoundary } = useErrorBoundary();
+	const router = useRouter();
 
 	const createPost = async (
 		args: {apiUrl: string, input: PostCreateInput}
@@ -32,6 +33,7 @@ export const usePostCreateFetcher = () => {
 			const res = await fetcherService.multiPost(apiUrl, formData);
 			if (res && res.status >= 200 && res.status < 300) {
 				toast.success(res?.data?.message || SYSTEM_MESSAGES.SUCCESS);
+				router.push(FRONTEND_PATH.HOME)
 			} else if (res?.data?.errors) {
 				return res.data.errors;
 			} else {

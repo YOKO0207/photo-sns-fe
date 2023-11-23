@@ -124,7 +124,10 @@ export const DropDown: FC<Props> = (props) => {
 															title={item.modal.title}
 															description={item.modal.description}
 															onClickYes={item.function}
-															onClose={handleClose}
+															onClose={(e) => {
+																handleClose(e)
+																item.modal?.onClose && item.modal.onClose()
+															}}
 														>
 															<SParagraph my={0}>{item.name}</SParagraph>
 														</ModalConfirmation>

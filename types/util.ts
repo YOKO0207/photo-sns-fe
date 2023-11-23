@@ -61,5 +61,6 @@ export interface ListFunc {
 	modal?: {
 		title: string;
 		description?: string;
+		onClose?: () => void;
 	};
 }
