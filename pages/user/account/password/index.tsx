@@ -1,7 +1,7 @@
 import { Box, Button, LSpan, Spinner, TextField } from "@/components/atoms";
 import { AppLayout } from "@/components/layouts";
 import { DashboardFormWrapper, ProfileMenuBar } from "@/components/organisms";
-import { useUserUpdatePasswordHandler } from "@/hooks";
+import { useUserUpdatePasswordHandler, useCheckAuth } from "@/hooks";
 import { checkAuthMiddleware } from "@/libs/middleware";
 import { userPasswordUpdateInputSchema } from "@/libs/schemas";
 import { isEmptyObject } from "@/libs/utils";
@@ -11,6 +11,8 @@ import { NextPage } from "next";
 import * as R from "ramda";
 
 const UserAccountPasswordPage: NextPage = () => {
+	const { isLoading } = useCheckAuth("user");
+
 	const { handleUserUpdatePassword, isFormLoading } =
 		useUserUpdatePasswordHandler();
 
@@ -25,7 +27,9 @@ const UserAccountPasswordPage: NextPage = () => {
 		password_confirmation: "",
 	};
 
-	return (
+	return isLoading ? (
+		<p>loading...</p>
+	) : (
 		<AppLayout>
 			<Box display="flex" gap="40px" my="54px">
 				<Box width="23%">

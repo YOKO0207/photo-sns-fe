@@ -1,16 +1,19 @@
 import { Box, Button, LSpan, Spinner, TextField } from "@/components/atoms";
 import { AppLayout } from "@/components/layouts";
 import { DashboardFormWrapper, ProfileMenuBar } from "@/components/organisms";
-import { useMe, useUserUpdateEmailHandler } from "@/hooks";
+import { useUserUpdateEmailHandler, useCheckAuth } from "@/hooks";
 import { checkAuthMiddleware } from "@/libs/middleware";
 import { userEmailUpdateInputSchema } from "@/libs/schemas";
 import { isEmptyObject } from "@/libs/utils";
+import { useUserContext } from "@/states/contexts";
 import { UserEmailUpdateInput } from "@/types";
 import { Formik } from "formik";
 import { NextPage } from "next";
 import * as R from "ramda";
 
 const UserAccountEmailPage: NextPage = () => {
+	const { isLoading } = useCheckAuth("user");
+
 	const { handleUserUpdateEmail, isFormLoading } = useUserUpdateEmailHandler();
 
 	const handleFormSubmit = async (input: UserEmailUpdateInput) => {
@@ -18,17 +21,21 @@ const UserAccountEmailPage: NextPage = () => {
 		return validationErrors;
 	};
 
-	const { user } = useMe();
+	const { state: user } = useUserContext();
 
 	const initialValues = {
-		email: user?.data?.data?.email || "",
+		email: user?.email || "",
 		password: "",
 	};
 
-	return (
+	return isLoading ? (
+		<p>loading...</p>
+	) : (
 		<AppLayout>
 			<Box display="flex" gap="40px" my="54px">
-				<Box width="23%"><ProfileMenuBar /></Box>
+				<Box width="23%">
+					<ProfileMenuBar />
+				</Box>
 				<Box width="77%">
 					<DashboardFormWrapper
 						title="メールアドレス変更ページ"
@@ -99,7 +106,6 @@ const UserAccountEmailPage: NextPage = () => {
 												variant="contained"
 												color="primary"
 												type="submit"
-												
 												size="md"
 												width="300px"
 												disabled={
@@ -140,6 +146,6 @@ const breadcrumbList = [
 	},
 ];
 
-export async function getServerSideProps(context: any) {
-	return await checkAuthMiddleware(context, "user");
-}
+// export async function getServerSideProps(context: any) {
+// 	return await checkAuthMiddleware(context, "user");
+// }

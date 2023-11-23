@@ -41,6 +41,10 @@ export type UserLoginInput = {
 	password: string;
 };
 
+export interface UserAuthResponse extends User {
+	access_token: string;
+}
+
 export type UserEmailVerificationResendInput = {
 	email: string;
 };

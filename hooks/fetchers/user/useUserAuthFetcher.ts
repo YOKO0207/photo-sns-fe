@@ -6,7 +6,12 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
 import { toast } from "react-toastify";
-import { User, UserLoginInput, UserRegisterInput } from "types";
+import {
+	User,
+	UserLoginInput,
+	UserRegisterInput,
+	UserAuthResponse,
+} from "types";
 
 const useCSRFTokenFetcher = () => {
 	const [isFormLoading, setIsFormLoading] = useState(false);
@@ -74,30 +79,33 @@ export const useUserRegisterFetcher = () => {
 export const useUserLoginFetcher = () => {
 	const [isFormLoading, setIsFormLoading] = useState(false);
 	const { showBoundary } = useErrorBoundary();
-	const { getCSRFToken } = useCSRFTokenFetcher();
 	const router = useRouter();
 	const { dispatch } = useUserContext();
 
 	const loginAsUser = async (args: {apiUrl: string, input: UserLoginInput}) => {
 		const { apiUrl, input } = args;
 		setIsFormLoading(true);
-		const csrfRes = await getCSRFToken();
-		if (csrfRes) {
-			try {
-				const res = await fetcherService.post(apiUrl, input);
-				if (res && res.status >= 200 && res.status < 300 && res?.data?.data) {
-					dispatch({ type: "SET_USER_DATA", payload: res?.data?.data as User });
-					router.push(FRONTEND_PATH.HOME);
-				} else if (res?.data?.errors) {
-					return res.data.errors;
-				} else {
-					toast.error(res?.data?.message || SYSTEM_MESSAGES.FAILURE);
-				}
-			} catch (error) {
-				showBoundary(error);
-			} finally {
-				setIsFormLoading(false);
+		try {
+			const res =
+				await fetcherService.postWithReturnValue<UserLoginInput, UserAuthResponse>(
+					apiUrl,
+					input
+				);
+			if (res && res.status >= 200 && res.status < 300 && res?.data?.data) {
+				// Store the token in local storage
+				localStorage.setItem("access-token", res?.data?.data?.access_token);
+
+				dispatch({ type: "SET_USER_DATA", payload: res?.data?.data as User });
+				router.push(FRONTEND_PATH.HOME);
+			} else if (res?.data?.errors) {
+				return res.data.errors;
+			} else {
+				toast.error(res?.data?.message || SYSTEM_MESSAGES.FAILURE);
 			}
+		} catch (error) {
+			showBoundary(error);
+		} finally {
+			setIsFormLoading(false);
 		}
 	};
 
@@ -120,6 +128,7 @@ export const useUserLogoutFetcher = () => {
 			const res = await fetcherService.post(apiUrl, {});
 			if (res && res.status >= 200 && res.status < 300) {
 				toast.success(res?.data?.message || SYSTEM_MESSAGES.SUCCESS);
+				localStorage.removeItem("access-token");
 				dispatch({type: "UNSET_USER_DATA"})
 				router.push(FRONTEND_PATH.HOME);
 			} else {

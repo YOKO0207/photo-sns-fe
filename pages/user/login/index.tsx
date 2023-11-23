@@ -1,7 +1,7 @@
 import { Box, Button, LSpan, Spinner, TextField } from "@/components/atoms";
 import { GuestLayout } from "@/components/layouts";
 import { GuestFormWrapper } from "@/components/organisms";
-import { useUserLoginHandler } from "@/hooks";
+import { useUserLoginHandler, useCheckAuth } from "@/hooks";
 import { checkAuthMiddleware } from "@/libs/middleware";
 import { FRONTEND_PATH } from "@/libs/routes";
 import { userLoginInputSchema } from "@/libs/schemas";
@@ -14,6 +14,8 @@ import { NextPage } from "next";
 import * as R from "ramda";
 
 const UserLoginPage: NextPage = () => {
+	const { isLoading } = useCheckAuth("guest");
+
 	const { handleUserLogin, isFormLoading } = useUserLoginHandler();
 
 	const handleFormSubmit = async (input: UserLoginInput) => {
@@ -26,7 +28,9 @@ const UserLoginPage: NextPage = () => {
 		password: "",
 	};
 
-	return (
+	return isLoading ? (
+		<p>loading...</p>
+	) : (
 		<GuestLayout>
 			<GuestFormWrapper
 				title="ログインページ"

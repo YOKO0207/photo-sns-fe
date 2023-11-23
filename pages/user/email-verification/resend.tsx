@@ -1,7 +1,7 @@
 import { Box, Button, LSpan, Spinner, TextField } from "@/components/atoms";
 import { GuestLayout } from "@/components/layouts";
 import { GuestFormWrapper } from "@/components/organisms";
-import { useUserEmailVerificationResendHandler } from "@/hooks";
+import { useUserEmailVerificationResendHandler, useCheckAuth } from "@/hooks";
 import { checkAuthMiddleware } from "@/libs/middleware";
 import { FRONTEND_PATH } from "@/libs/routes";
 import { userEmailVerificationResendInputSchema } from "@/libs/schemas";
@@ -14,6 +14,8 @@ import { NextPage } from "next";
 import * as R from "ramda";
 
 const UserEmailVerificationResendPage: NextPage = () => {
+	const { isLoading } = useCheckAuth("guest");
+
 	const { handleUserEmailVerificationResend, isFormLoading } =
 		useUserEmailVerificationResendHandler();
 
@@ -28,7 +30,9 @@ const UserEmailVerificationResendPage: NextPage = () => {
 		email: "",
 	};
 
-	return (
+	return isLoading ? (
+		<p>loading...</p>
+	) : (
 		<GuestLayout>
 			<GuestFormWrapper
 				title="本人確認メール再送信"
@@ -117,7 +121,3 @@ const UserEmailVerificationResendPage: NextPage = () => {
 };
 
 export default UserEmailVerificationResendPage;
-
-export async function getServerSideProps(context: any) {
-	return await checkAuthMiddleware(context, "guest");
-}

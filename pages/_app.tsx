@@ -38,16 +38,16 @@ interface AppWrapperProps {
 const AppWrapper: FC<AppWrapperProps> = (props) => {
 	const { children } = props;
 
-	const { user } = useMe();
+	const { data } = useMe();
 		const { dispatch } = useUserContext();
 
 	useEffect(() => {
-		if (user?.data?.data) {
-			dispatch({ type: "SET_USER_DATA", payload: user.data.data });
+		if (data?.data?.data) {
+			dispatch({ type: "SET_USER_DATA", payload: data.data.data });
 		} else {
 			dispatch({ type: "UNSET_USER_DATA" });
 		}
-	}, [user?.data?.data, dispatch]);
+	}, [data?.data?.data, dispatch]);
 	
 	return (<>{children}</>)
 };

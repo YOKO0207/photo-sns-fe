@@ -1,7 +1,7 @@
 import { AppLayout } from "@/components/layouts";
 import { NextPage } from "next";
 import { useUserContext } from "@/states/contexts";
-import { useMe, usePostIndexSWR } from "@/hooks";
+import { usePostIndexSWR } from "@/hooks";
 import { Image, Box } from "@/components/atoms";
 import { Posts } from "@/types";
 import { PostIndexCard } from "@/components/organisms";

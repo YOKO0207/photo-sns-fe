@@ -1,7 +1,7 @@
 import { Box, Button, LSpan, Spinner, TextField } from "@/components/atoms";
 import { AppLayout } from "@/components/layouts";
 import { DashboardFormWrapper, ProfileMenuBar } from "@/components/organisms";
-import { useUserUpdateProfileHandler } from "@/hooks";
+import { useUserUpdateProfileHandler, useCheckAuth } from "@/hooks";
 import { checkAuthMiddleware } from "@/libs/middleware";
 import { userNameUpdateInputSchema } from "@/libs/schemas";
 import { isEmptyObject } from "@/libs/utils";
@@ -12,6 +12,8 @@ import { NextPage } from "next";
 import * as R from "ramda";
 
 const UserAccountNamePage: NextPage = () => {
+	const { isLoading } = useCheckAuth("user");
+
 	const { handleUserUpdateProfile, isFormLoading } =
 		useUserUpdateProfileHandler();
 
@@ -26,7 +28,9 @@ const UserAccountNamePage: NextPage = () => {
 		name: user?.name || "",
 	};
 
-	return (
+	return isLoading ? (
+		<p>loading...</p>
+	) : (
 		<AppLayout>
 			<Box display="flex" gap="40px" my="54px">
 				<Box width="23%">
@@ -120,7 +124,3 @@ const breadcrumbList = [
 		description: `プロフィール編集`,
 	},
 ];
-
-export async function getServerSideProps(context: any) {
-	return await checkAuthMiddleware(context, "user");
-}

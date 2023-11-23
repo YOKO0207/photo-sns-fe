@@ -8,7 +8,7 @@ export const useMe = () => {
 	const apiUrl = `${BASE_API_URL}/${BACKEND_ROUTES.ME}`;
 
 	const {
-		data: user,
+		data,
 		error,
 		isLoading,
 	} = useSWR(apiUrl, SWRFetcher<User>, {
@@ -17,5 +17,5 @@ export const useMe = () => {
 		revalidateOnReconnect: false,
 	});
 
-	return { user, isLoading };
+	return { data, isLoading };
 };
